@@ -23,3 +23,4 @@ START: 	MOV 	DPTR,#1000h			;incarcare adresa in DPTR
 		MOVX 	@DPTR,A				;depunere in MD externa
 		SJMP 	$
 END
+	
