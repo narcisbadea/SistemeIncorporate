@@ -12,13 +12,13 @@
 	
 		ORG 	0h
 Start: 	MOV 	DPTR,#1000h		;incarcare adresa in DPTR 
-		MOVX 	A,@DPTR 		;citire din MD externa si depunere in acumulator
+		MOVX 	A,@DPTR 		;citire din MD externa si incarcare in acumulator
 		ADD		A,#30h			;aduna continutul acumulatorului la operandul sursa si depune rezultatul in acumulator
 		CJNE	A,#39h,Next		;testarea caracterului citit daca este egal cu CR(09h) nu se face salt la Next
 Next:	JC		Exit			;salt la exit daca carry este setat pe 1(in acumulator nu este incarcat un numar BCD)
 		MOV		A,#20h			;incarcare valoare(20h) in acumulator 
 		SJMP	Exit			;salt scurt la iesire
 Exit:	MOV 	DPTR,#0100h		;incarcare adresa(0100h) in DPTR 
-		MOVX 	@DPTR,A			;depunere in MD externa
+		MOVX 	@DPTR,A			;incarcare in MD externa
 		SJMP	$
 END

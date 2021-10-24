@@ -11,11 +11,11 @@
 Start: 		MOV		DPTR,#1000h		;incarcare adresa(1000h) in DPTR 
 			MOVX	A,@DPTR			;citire din MD externa si incarcare in acumulator
 			SUBB	A,#30h			;scadere cu imprumut – scade al doilea operand sursa din primul operand, aflat in acumulator
-			CJNE	A,#0Ah,Next		;testarea caracterului citit daca este egal cu CR(0Ah) nu se face salt la Next
+			CJNE	A,#0Ah,Next		;testarea caracterului citit daca este egal cu 0Ah nu se face salt la Next
 Next:		JC		Exit			;salt la exit daca carry este setat pe 1
 			SUBB	A,#07h			;scadere cu imprumut – scade al doilea operand sursa din primul operand, aflat in acumulator
 			SJMP	Exit			;salt scurt la iesire
 Exit:		MOV 	DPTR,#1001h		;incarcare adresa(1000h) in DPTR 
-			MOVX 	@DPTR,A			;depunere in MD externa
+			MOVX 	@DPTR,A			;incarcare in MD externa
 			SJMP	$
 END

@@ -11,7 +11,7 @@
 
 		ORG 	0h
 START: 	MOV 	DPTR,#1000h	;incarcare adresa in DPTR 
-		MOVX 	A,@DPTR		;citire din MD externa si depunere in acumulator
+		MOVX 	A,@DPTR		;citire din MD externa si incarcare in acumulator
 		MOV 	R0,A		;incarca in registrul R0 continutul acumulatorului
 		MOV 	DPTR,#SSEG	;incarca adresa SSEG(1000h) in DPTR
 		MOV 	A,#00h		;incarca in acumulator 00h
@@ -27,7 +27,7 @@ LOOP: 	MOV 	A,R1		;incarca in acumulator continutul registrului R1
 		MOV 	R1,#0FFh	;incarca in registrul R1 valoarea 0FFh
 EXIT: 	MOV 	DPTR,#0100h	;incarcare adresa(0100h) in DPTR 
 		MOV 	A,R1		;incarca in acumulator continutul registrului R1 
-		MOVX 	@DPTR,A		;depunere in MD externa
+		MOVX 	@DPTR,A		;incarcare in MD externa
 		SJMP 	$
 			
 		ORG 	1000h
