@@ -1,0 +1,63 @@
+ORG 0H
+	LJMP 	PP	
+				
+ORG 0BH			
+	LJMP 	TIMER0
+
+ORG 100H		
+PP:
+	MOV 	DPTR,#1000H
+	MOV 	P1,#50H
+	SETB 	IE.7	
+	SETB 	IE.1
+	MOV 	TMOD,#01H
+	SETB 	TCON.4
+	
+LOOP:
+	SJMP 	$
+
+ORG 200H		
+TIMER0:
+	citireP1conversieASCII:
+		MOV 	A,P1
+		MOV 	R1,A
+		ANL 	A,#0FH
+		ACALL 	CONVERSIE
+		MOV 	A,R1
+		SWAP 	A
+		ANL 	A,#0FH
+		ACALL 	CONVERSIE
+		MOV 	A,#00H
+		MOVX 	@DPTR,A
+		INC 	DPTR
+		
+	ValoareDeLaCareSeIncrementeazaT0:
+		MOV 	TH0,#0B1H
+		MOV 	TL0,#0E0H
+		
+NEW_P1:
+		MOV 	A,P1
+		RL 		A
+		MOV 	P1,A
+		
+RETURN:	
+		RETI
+
+ORG 250H
+CONVERSIE:
+		CJNE 	A,#0Ah,Next1
+		
+Next1: 
+		JC 		Next2
+		ADD 	A,#37h
+		MOVX 	@DPTR,A
+		INC 	DPTR
+		RET
+		
+Next2: 
+		ADD 	A,#30h
+		MOVX 	@DPTR,A
+		INC 	DPTR
+		RET
+	
+END	
